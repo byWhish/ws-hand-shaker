@@ -1,0 +1,124 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to top, #0e5616, #fff);
+  background-size: 100% 100%;
+  margin: 0;
+  padding: 8px;
+  width: 350px;
+  height: 580px
+}
+
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+  background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar {
+  width: 6px;
+  background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #FFF;
+  background-image: -webkit-gradient(linear,
+          40% 0%,
+          75% 84%,
+          from(#4D9C41),
+          to(#19911D),
+          color-stop(.6,#54DE5D))
+}
+
+.c-popup {
+  display: flex;
+  flex-direction: column;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 12px;
+    justify-content: space-between;
+  }
+
+  &__label {
+    font-weight: bold;
+
+    &--white {
+      font-weight: bold;
+      display: flex;
+      color: white;
+    }
+  }
+
+  &__copy-icon {
+    width: 16px;
+    height: 16px;
+    margin: 0 4px 4px;
+    cursor: pointer;
+  }
+
+  &__items-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__items-inner-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &__action {
+    &:hover {
+      color: skyblue;
+    }
+    cursor: pointer;
+    color: dodgerblue;
+  }
+}
+
+h3 {
+  margin: 0 4px;
+  width: 140px;
+  text-align: center;
+}
+
+input, select {
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border: 1px solid gray;
+}
+
+button, textarea {
+  margin-bottom: 8px;
+  resize: none;
+}
+
+button {
+  border: 1px solid white;
+  border-radius: 6px;
+  padding: 4px;
+  cursor: pointer;
+  color: white;
+  background: transparent;
+  outline: none;
+}
+
+button:hover {
+  border: 1px solid black;
+  color: black;
+}
+
+button:active {
+  background: white;
+}
+
+img {
+  width: 32px;
+  height: 32px;
+}

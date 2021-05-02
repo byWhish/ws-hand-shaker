@@ -1,0 +1,19 @@
+{
+  "name": "encodeDeepLink",
+  "description": "Tool para generar encoded & decoded deep links para webviews y placeholders de Mario",
+  "version": "1.1.0",
+  "manifest_version": 2,
+  "icons": {
+    "16": "./icon-16.png",
+    "32": "./icon-32.png",
+    "48": "./icon-48.png",
+    "128": "./icon-128.png"
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "tabs",
+    "<all_urls>"
+  ]
+}

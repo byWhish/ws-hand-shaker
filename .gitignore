@@ -1,0 +1,8 @@
+# build files
+dist
+
+# dependecies
+node_modules
+
+# ide
+.idea
