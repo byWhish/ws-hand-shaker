@@ -57,8 +57,9 @@ const Popup = () => {
 
 	const handleGetCurrentUrl = () => {
 		chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-			setUrl(tabs[0].url);
-			localStorage.setItem('deeplink_url', event.target.value);
+			const url = tabs[0].url;
+			setUrl(url);
+			localStorage.setItem('deeplink_url', url);
 		});
 	};
 
