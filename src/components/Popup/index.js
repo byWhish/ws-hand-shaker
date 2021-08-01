@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import SnackBar from '../SnackBar';
-import {encodeDeepLink, decodeDeepLink} from './helper';
+import {encodeDeepLink} from '../helper';
 
 import './index.scss';
 
 const Popup = () => {
 	const [result, setResult] = useState('');
-	const [decoded, setDecoded] = useState('');
 	const [url, setUrl] = useState('');
 	const [urlTitle, setUrlTitle] = useState('');
 	const [deepLink, setDeepLink] = useState('');
@@ -14,6 +13,7 @@ const Popup = () => {
 	const handleUrlChange = (event) => {
 		setUrlTitle(event.target.value);
 		setUrl(event.target.value);
+		localStorage.setItem('deeplink_url', event.target.value);
 	};
 
 	const handleChange = (event) => {
@@ -26,10 +26,15 @@ const Popup = () => {
 		}
 	};
 
+	useEffect(() => {
+		setUrl(localStorage.getItem('deeplink_url') ?? '');
+		setResult(localStorage.getItem('deepLink') ?? '');
+	}, []);
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const {deepLink, title, url, authentication_mode, bar_color, loading_mode, back_style, back_action} = event.target;
-		setResult(encodeDeepLink({
+		const resultDeepLink = encodeDeepLink({
 			deepLink: deepLink.value,
 			title: title.value,
 			url: url.value,
@@ -38,12 +43,15 @@ const Popup = () => {
 			loading_mode: loading_mode.value,
 			back_style: back_style.value,
 			back_action: back_action.value,
-		}));
+		});
+		localStorage.setItem('deepLink', resultDeepLink);
+		setResult(resultDeepLink);
 	};
 
 	const handleDecodeDeepLink = () => {
 		if (result.length) {
-			setDecoded(decodeDeepLink(result));
+			const url = chrome.runtime.getURL(`output.html?q=${result}`);
+			chrome.tabs.create({url}, function(tab) {});
 		}
 	};
 
@@ -55,6 +63,11 @@ const Popup = () => {
 
 	const handleClearUrl = () => {
 		setUrl('');
+	};
+
+	const handleClearResult = () => {
+		setResult('');
+		localStorage.setItem('deepLink', '');
 	};
 
 	const handleDeepLinkChange = (e) => {
@@ -118,9 +131,9 @@ const Popup = () => {
 					<div className="c-popup__items-inner-wrapper">
 						<label className="c-popup__label" htmlFor="webTitle">use_web_title:</label>
 						<select name="use_web_title" id="webTitle">
-							<option />
 							<option value="false">false</option>
 							<option value="true">true</option>
+							<option />
 						</select>
 					</div>
 				</div>
@@ -128,20 +141,31 @@ const Popup = () => {
 					<div className="c-popup__items-inner-wrapper">
 						<label className="c-popup__label" htmlFor="backStyle">back_style:</label>
 						<select name="back_style" id="backStyle">
-							<option />
 							<option value="arrow">arrow</option>
 							<option value="cross">cross</option>
 							<option value="none">none</option>
 							<option value="menu">menu (Android)</option>
 							<option value="default">default (IOS)</option>
+							<option />
 						</select>
 					</div>
 					<div className="c-popup__items-inner-wrapper">
 						<label className="c-popup__label" htmlFor="backAction">back_action:</label>
 						<select name="back_action" id="backAction">
-							<option />
 							<option value="back">back</option>
 							<option value="close">close</option>
+							<option />
+						</select>
+					</div>
+				</div>
+				<div className="c-popup__items-wrapper">
+					<div className="c-popup__items-inner-wrapper">
+						<label className="c-popup__label" htmlFor="backStyle">refresh_mode:</label>
+						<select name="back_style" id="backStyle">
+							<option value="arrow">pull</option>
+							<option value="none">none</option>
+							<option value="menu">invalid</option>
+							<option />
 						</select>
 					</div>
 				</div>
@@ -152,14 +176,10 @@ const Popup = () => {
 			<label className="c-popup__label--white" htmlFor="encoded">
 				{`encoded deepLink (${result.length} caracteres)`}
 				<img className="c-popup__copy-icon" alt="copy icon" src="img/copy-white.png" title="copiar encoded to clipboard" onClick={handleCopyToClipboard}/>
+				<span className="c-popup__action" onClick={handleClearResult}> Clear</span>
 			</label>
 			<textarea title={result} value={result} name="result" id="encoded" rows={5} onChange={handleChange} />
 			<button onClick={handleDecodeDeepLink}>Decode</button>
-			<label className="c-popup__label--white" htmlFor="decoded">
-                decoded deepLink
-				<img className="c-popup__copy-icon" alt="copy icon" src="img/copy-white.png" title="copiar decoded to clipboard" onClick={handleCopyToClipboard}/>
-			</label>
-			<textarea title={decoded} value={decoded} name="result" id="decoded" rows={4} wrap="off" readOnly />
 		</div>
 	);
 };

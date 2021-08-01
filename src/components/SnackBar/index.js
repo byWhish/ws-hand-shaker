@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './index.scss';
 
 const SnackBar = ({message, show, onClose = (x) => x}) => {
