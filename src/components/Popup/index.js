@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import SnackBar from '../SnackBar';
 import {encodeDeepLink} from '../helper';
+import ParamSelect from './ParamSelect';
 
 import './index.scss';
 
@@ -33,16 +34,20 @@ const Popup = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		const {deepLink, title, url, authentication_mode, bar_color, loading_mode, back_style, back_action} = event.target;
+		const {target} = event;
 		const resultDeepLink = encodeDeepLink({
-			deepLink: deepLink.value,
-			title: title.value,
-			url: url.value,
-			authentication_mode: authentication_mode.value,
-			bar_color: bar_color.value,
-			loading_mode: loading_mode.value,
-			back_style: back_style.value,
-			back_action: back_action.value,
+			deepLink: target.deepLink.value,
+			title: target.title.value,
+			url: target.url.value,
+			authentication_mode: target.authentication_mode.value,
+			bar_color: target.bar_color.value,
+			loading_mode: target.loading_mode.value,
+			back_style: target.back_style.value,
+			back_action: target.back_action.value,
+			refresh_mode: target.refresh_mode.value,
+			opv: target.opv.value,
+			hides_bottom_bar: target.hides_bottom_bar.value,
+			toolbar_elevation: target.toolbar_elevation.value,
 		});
 		localStorage.setItem('deepLink', resultDeepLink);
 		setResult(resultDeepLink);
@@ -111,65 +116,23 @@ const Popup = () => {
 						<label className="c-popup__label" htmlFor="barColor">bar_color (ffffff):</label>
 						<input type="barColor" name="bar_color" id="barColor"/>
 					</div>
-					<div className="c-popup__items-inner-wrapper">
-						<label className="c-popup__label" htmlFor="auth">authentication_mode:</label>
-						<select name="authentication_mode" id="auth">
-							<option value="required">required</option>
-							<option value="optional">optional</option>
-							<option value="none">none</option>
-							<option />
-						</select>
-					</div>
+					<ParamSelect id="auth" name="authentication_mode" label="authentication_mode:" options={['required', 'optional', 'none']} />
 				</div>
 				<div className="c-popup__items-wrapper">
-					<div className="c-popup__items-inner-wrapper">
-						<label className="c-popup__label" htmlFor="loading">loading_mode:</label>
-						<select name="loading_mode" id="loading">
-							<option value="none">none</option>
-							<option value="loading">loading</option>
-							<option />
-						</select>
-					</div>
-					<div className="c-popup__items-inner-wrapper">
-						<label className="c-popup__label" htmlFor="webTitle">use_web_title:</label>
-						<select name="use_web_title" id="webTitle">
-							<option value="false">false</option>
-							<option value="true">true</option>
-							<option />
-						</select>
-					</div>
+					<ParamSelect id="loading" name="loading_mode" label="loading_mode:" options={['none', 'loading']} />
+					<ParamSelect id="webTitle" name="use_web_title" label="use_web_title:" options={['false', 'true']} />
 				</div>
 				<div className="c-popup__items-wrapper">
-					<div className="c-popup__items-inner-wrapper">
-						<label className="c-popup__label" htmlFor="backStyle">back_style:</label>
-						<select name="back_style" id="backStyle">
-							<option value="arrow">arrow</option>
-							<option value="cross">cross</option>
-							<option value="none">none</option>
-							<option value="menu">menu (Android)</option>
-							<option value="default">default (IOS)</option>
-							<option />
-						</select>
-					</div>
-					<div className="c-popup__items-inner-wrapper">
-						<label className="c-popup__label" htmlFor="backAction">back_action:</label>
-						<select name="back_action" id="backAction">
-							<option value="back">back</option>
-							<option value="close">close</option>
-							<option />
-						</select>
-					</div>
+					<ParamSelect id="backStyle" name="back_style" label="back_style:" options={['arrow', 'cross', 'none', 'menu', 'default']} />
+					<ParamSelect id="backAction" name="back_action" label="back_action:" options={['back', 'close']} />
 				</div>
 				<div className="c-popup__items-wrapper">
-					<div className="c-popup__items-inner-wrapper">
-						<label className="c-popup__label" htmlFor="backStyle">refresh_mode:</label>
-						<select name="back_style" id="backStyle">
-							<option value="arrow">pull</option>
-							<option value="none">none</option>
-							<option value="menu">invalid</option>
-							<option />
-						</select>
-					</div>
+					<ParamSelect id="refreshMode" name="refresh_mode" label="refresh_mode:" options={['pull', 'none', 'invalid']} />
+					<ParamSelect id="opv" name="opv" label="opv:" options={['fend', 'native']} />
+				</div>
+				<div className="c-popup__items-wrapper">
+					<ParamSelect id="hidesBottomBar" name="hides_bottom_bar" label="hides_bottom_bar:" options={['true', 'false']} />
+					<ParamSelect id="toolbarElevation" name="toolbar_elevation" label="toolbar_elevation:" options={['none', 'default']} />
 				</div>
 
 				<button>Generar</button>
