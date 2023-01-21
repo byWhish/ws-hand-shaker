@@ -5,12 +5,12 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
 	devServer: {
-		contentBase: path.resolve(__dirname, './src'),
+		contentBase: path.resolve(__dirname, './src/pages'),
 		historyApiFallback: true,
 	},
 	entry: {
-		popup: path.resolve(__dirname, './src/popup-index.js'),
-		output: path.resolve(__dirname, './src/output-index.js'),
+		popup: path.resolve(__dirname, './src/pages/popup/index.js'),
+		output: path.resolve(__dirname, './src/pages/output/index.js'),
 	},
 	output: {
 		filename: '[name].bundle.js',
@@ -55,20 +55,20 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			filename: 'popup.html',
-			template: 'src/popup.html',
+			template: 'src/pages/popup/index.html',
 			chunks: ['popup'],
 		}),
 		new HtmlWebpackPlugin({
 			filename: 'output.html',
-			template: 'src/output.html',
+			template: 'src/pages/output/index.html',
 			chunks: ['output'],
 		}),
 		new CopyWebpackPlugin({
 			patterns: [
 				{from: 'src/manifest.json', to: '[name][ext]'},
-				{from: 'src/*.png', to: '[name][ext]'},
+				{from: 'src/icons/*.png', to: '[name][ext]'},
 				{from: 'src/img/*.gif', to: 'img/[name][ext]'},
-				{from: 'src/img/*.png', to: 'img/[name][ext]'},
+				// {from: 'src/img/*.png', to: 'img/[name][ext]'},
 			],
 		}),
 		new CleanWebpackPlugin(),

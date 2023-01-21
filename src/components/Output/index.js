@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {decodeDeepLink} from '../helper';
 
 import './index.scss';
 
@@ -8,13 +7,13 @@ const Options = () => {
 
 	useEffect(() => {
 		const query = location.search.replace(/^.*?=/, '');
-		setOutput(decodeDeepLink(decodeURIComponent(query)));
+		setOutput(decodeURIComponent(query));
 	}, []);
 
 	return (
-		<div className="output">
+		<pre className="output">
 			{output}
-		</div>
+		</pre>
 	);
 };
 

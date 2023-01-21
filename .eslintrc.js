@@ -18,6 +18,10 @@ module.exports = {
 		'react',
 	],
 	'rules': {
+		'object-curly-spacing': [
+			'error',
+			'always',
+		],
 		'indent': [
 			'warn',
 			'tab',
