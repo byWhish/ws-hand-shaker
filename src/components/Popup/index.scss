@@ -1,97 +1,46 @@
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(to top, #0e5616, #fff);
+  background-color: rgb(30, 169, 82);
   background-size: 100% 100%;
   margin: 0;
-  padding: 8px;
-  width: 350px;
-  height: 560px
-}
-
-body::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
-  background-color: #F5F5F5;
-}
-
-body::-webkit-scrollbar {
-  width: 6px;
-  background-color: #F5F5F5;
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: #FFF;
-  background-image: -webkit-gradient(linear,
-          40% 0%,
-          75% 84%,
-          from(#4D9C41),
-          to(#19911D),
-          color-stop(.6,#54DE5D))
+  padding: 24px;
+  width: 300px;
+  border: solid 8px white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .c-popup {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
-  &__form {
+  &__message {
     display: flex;
     flex-direction: column;
   }
 
-  &__header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 12px;
-    justify-content: space-between;
-  }
-
-  &__label {
-    font-weight: bold;
-
-    &--white {
-      font-weight: bold;
-      display: flex;
-      color: white;
-    }
-  }
-
-  &__copy-icon {
-    width: 16px;
-    height: 16px;
-    margin: 0 4px 4px;
-    cursor: pointer;
-  }
-
-  &__items-wrapper {
-    display: flex;
-    flex-direction: row;
-  }
-
-  &__items-inner-wrapper {
+  &__layout {
     display: flex;
     flex-direction: column;
-    flex: 1;
-  }
-
-  &__action {
-    &:hover {
-      color: skyblue;
-    }
-    cursor: pointer;
-    color: dodgerblue;
   }
 }
 
-h3 {
-  margin: 0 4px;
-  width: 140px;
-  text-align: center;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-input, select {
+input {
   border-radius: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 18px;
   border: 1px solid gray;
+  font-size: 18px;
+}
+
+input[type=checkbox] {
+  margin-bottom: 0;
 }
 
 button, textarea {
@@ -107,11 +56,11 @@ button {
   color: white;
   background: transparent;
   outline: none;
+  opacity: .6;
 }
 
 button:hover {
-  border: 1px solid black;
-  color: black;
+  opacity: 1;
 }
 
 button:active {
@@ -119,6 +68,11 @@ button:active {
 }
 
 img {
-  width: 32px;
-  height: 32px;
+  width: 64px;
+  height: 64px;
+  padding: 8px;
+}
+
+label {
+  color: white;
 }

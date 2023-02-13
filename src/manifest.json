@@ -1,6 +1,6 @@
 {
-  "name": "demoExtensionChrome",
-  "description": "Demo",
+  "name": "ws hand shaker",
+  "description": "Init ws chats",
   "version": "0.0.1",
   "manifest_version": 3,
   "icons": {
@@ -20,3 +20,4 @@
     "<all_urls>"
   ]
 }
+

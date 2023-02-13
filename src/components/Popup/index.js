@@ -1,39 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './index.scss';
 
 const Popup = () => {
-	const handleCreateTab = () => {
-		const url = chrome.runtime.getURL('output.html?q=NewTab');
-		chrome.tabs.create({url}, function(tab) {});
+	const [number, setNumber] = useState();
+	const [show, setShow] = useState(false);
+	const [message, setMessage] = useState('');
+
+	const sendMessage = () => {
+		if (number) {
+			const url = `https://wa.me/${number}${message ? `?text=${encodeURIComponent(message)}` : ''}`;
+			chrome.tabs.create({ url });
+		}
 	};
 
-	const handleGetCurrentUrl = () => {
-		chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-			const url = tabs[0].url;
-			let _url = url.replace(/(https?:\/\/)?(www.)?/i, '');
-			_url = _url.split('.');
-			_url = _url.slice(_url.length - 2).join('.');
-			if (_url.indexOf('/') !== -1) {
-				alert(_url.split('/')[0]);
-			}
-			// alert(url.substring(url.lastIndexOf('.', url.lastIndexOf('.') - 1) + 1));
-		});
+	const handlePhoneNumberChange = (e) => {
+		setNumber(e.target.value);
 	};
 
-	const handleRedirect = () => {
-		chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-			const myNewUrl = 'https://www.google.com';
-			const tab = tabs[0];
-			chrome.tabs.update(tab.id, {url: myNewUrl});
-		});
+	const handleCheckChange = (e) => {
+		setShow(e.target.checked);
+	};
+
+	const handleMessageChange = (e) => {
+		setMessage(e.target.value);
 	};
 
 	return (
-		<div className="c-popup">
-			<button onClick={handleCreateTab}>Create tab</button>
-			<button onClick={handleGetCurrentUrl}>Get url</button>
-			<button onClick={handleRedirect}>Redirect</button>
+		<div>
+			<div className="c-popup">
+				<div className="c-popup__layout">
+					<input type="number" placeholder="Phone number" onChange={handlePhoneNumberChange} />
+					<button onClick={sendMessage}>Init chat</button>
+				</div>
+				<img alt="ws_icon" src="icon.png" />
+			</div>
+			<div className="c-popup__message">
+				<label>
+					<input type="checkbox" onChange={handleCheckChange} /> Message
+				</label>
+				{show && <textarea rows={3} onChange={handleMessageChange} />}
+			</div>
 		</div>
 	);
 };

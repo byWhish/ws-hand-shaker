@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
 	devServer: {
@@ -10,7 +10,6 @@ module.exports = {
 	},
 	entry: {
 		popup: path.resolve(__dirname, './src/pages/popup/index.js'),
-		output: path.resolve(__dirname, './src/pages/output/index.js'),
 	},
 	output: {
 		filename: '[name].bundle.js',
@@ -58,17 +57,10 @@ module.exports = {
 			template: 'src/pages/popup/index.html',
 			chunks: ['popup'],
 		}),
-		new HtmlWebpackPlugin({
-			filename: 'output.html',
-			template: 'src/pages/output/index.html',
-			chunks: ['output'],
-		}),
 		new CopyWebpackPlugin({
 			patterns: [
-				{from: 'src/manifest.json', to: '[name][ext]'},
-				{from: 'src/icons/*.png', to: '[name][ext]'},
-				{from: 'src/img/*.gif', to: 'img/[name][ext]'},
-				// {from: 'src/img/*.png', to: 'img/[name][ext]'},
+				{ from: 'src/manifest.json', to: '[name][ext]' },
+				{ from: 'src/icons/*.png', to: '[name][ext]' },
 			],
 		}),
 		new CleanWebpackPlugin(),
